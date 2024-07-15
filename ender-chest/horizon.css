@@ -1,0 +1,10 @@
+.horizon {
+    width: fit-content;
+    height: 2px;
+    display: flex;
+}
+.horizon2 {
+    width: fit-content;
+    height: 10px;
+    display: flex;
+}

@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ender-dragon-huydicodedao</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/postprocessing.min.js"></script>
+    <script>
+        function EnderDragon() {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(20, 20, 20);
+            scene.add(camera);
+
+            gsap.to(camera.position, {
+                x: 2, y: 2, z: 2, duration: 8,
+                ease: 'power.inOut'
+            });
+
+            const axesHelper = new THREE.AxesHelper(5);
+            //scene.add(axesHelper);
+
+            const renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x080808);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            document.body.appendChild(renderer.domElement);
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+
+            const pointLight = new THREE.PointLight(0xffffff, 2, 100);
+            pointLight.castShadow = true;
+            pointLight.shadow.mapSize.width = 3000;
+            pointLight.shadow.mapSize.height = 3000;
+            pointLight.shadow.camera.near = 0.5;
+            pointLight.shadow.camera.far = 100;
+            pointLight.shadow.bias = -0.0002;
+            pointLight.position.set(9, 10, 10);
+            camera.add(pointLight);
+
+            const orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
+
+            const plane1 = new THREE.PlaneGeometry(200, 200);
+            const material1 = new THREE.MeshPhysicalMaterial({ color: 0x111111 });
+            const mesh1 = new THREE.Mesh(plane1, material1);
+            mesh1.receiveShadow = true;
+            mesh1.rotation.x = -Math.PI / 2;
+            mesh1.position.y = -0.2;
+            scene.add(mesh1);
+
+            function RenderScene() {
+                requestAnimationFrame(RenderScene);
+                renderer.render(scene, camera);
+            }
+            RenderScene();
+
+            const image = new Image();
+            image.src = 'ender-dragon.png';
+
+            image.onload = function () {
+                function mat1(startX, startY, endX, endY) {
+                    const partWidth = endX - startX;
+                    const partHeight = endY - startY;
+
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.width = partWidth;
+                    canvas.height = partHeight;
+                    context.clearRect(0, 0, partWidth, partHeight);
+                    context.drawImage(image, startX, startY, partWidth, partHeight, 0, 0, partWidth, partHeight);
+
+                    const imageData = context.getImageData(0, 0, partWidth, partHeight);
+                    const data = imageData.data;
+
+                    for (let i = 0; i < data.length; i += 4) {
+                        if (data[i] === 255 && data[i + 1] === 255 && data[i + 2] === 255) {
+                            data[i + 3] = 0;
+                        }
+                    }
+
+                    context.putImageData(imageData, 0, 0);
+
+                    const texture = new THREE.CanvasTexture(canvas);
+                    texture.needsUpdate = true;
+                    texture.minFilter = THREE.NearestFilter;
+                    texture.magFilter = THREE.NearestFilter;
+                    texture.format = THREE.RGBAFormat;
+                    texture.type = THREE.UnsignedByteType;
+
+                    const material = new THREE.MeshPhysicalMaterial({
+                        map: texture,
+                        transparent: true,
+                        opacity: 1,
+                        alphaTest: 1,
+                        side: THREE.DoubleSide,
+                        metalness: 0.5,
+                        roughness: 1
+                    });
+
+                    return material;
+                }
+
+                //đế
+                const ALL = new THREE.Group()
+                scene.add(ALL);
+                ALL.position.y = 1;
+
+                gsap.to(ALL.rotation, {
+                    y: -Math.PI * 2,
+                    duration: 4,
+                    repeat: -1,
+                    ease: 'linear'
+                });
+
+                //body
+                let bodyGroup = new THREE.Group();
+                ALL.add(bodyGroup);
+                bodyGroup.position.x = 2;
+                bodyGroup.position.y = 0;
+                bodyGroup.position.z = 0;
+                bodyGroup.rotation.z = Math.PI / 6;
+
+                gsap.to(bodyGroup.position, {
+                    y: 0.05,
+                    duration: 1,
+                    delay: 0.3,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'power1.inOut'
+                });
+
+                //neck
+                let neckGroup = new THREE.Group();
+                neckGroup.position.z = 0.32;
+                bodyGroup.add(neckGroup);
+
+                let partNeckGroup1 = new THREE.Group();
+                neckGroup.add(partNeckGroup1);
+
+                gsap.to(partNeckGroup1.rotation, {
+                    keyframes: [
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -0.8
+                });
+
+                let partNeckGroup2 = new THREE.Group();
+                partNeckGroup1.add(partNeckGroup2);
+
+                gsap.to(partNeckGroup2.rotation, {
+                    keyframes: [
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -1.1
+                });
+                gsap.to(partNeckGroup2.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -1.1
+                });
+
+                let partNeckGroup3 = new THREE.Group();
+                partNeckGroup2.add(partNeckGroup3);
+
+                gsap.to(partNeckGroup3.rotation, {
+                    keyframes: [
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -1.4
+                });
+                gsap.to(partNeckGroup3.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -1.4
+                });
+
+                let partNeckGroup4 = new THREE.Group();
+                partNeckGroup3.add(partNeckGroup4);
+
+                gsap.to(partNeckGroup4.rotation, {
+                    keyframes: [
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -1.7
+                });
+                gsap.to(partNeckGroup4.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -1.7
+                });
+
+                let partNeckGroup5 = new THREE.Group();
+                partNeckGroup4.add(partNeckGroup5);
+
+                gsap.to(partNeckGroup5.rotation, {
+                    keyframes: [
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -2
+                });
+                gsap.to(partNeckGroup5.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -2
+                });
+
+
+                //tail
+                let tailGroup = new THREE.Group();
+                bodyGroup.add(tailGroup);
+                tailGroup.position.z = -0.32;
+
+                let tailGroup1 = new THREE.Group();
+                tailGroup.add(tailGroup1);
+                tailGroup1.position.z = -0.05;
+
+                gsap.to(tailGroup1.rotation, {
+                    keyframes: [
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -1
+                });
+                gsap.to(tailGroup1.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -1
+                });
+
+                let tailGroup2 = new THREE.Group();
+                tailGroup1.add(tailGroup2);
+                tailGroup2.position.z = -0.1;
+
+                gsap.to(tailGroup2.rotation, {
+                    keyframes: [
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -1.3
+                });
+                gsap.to(tailGroup2.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -1.3
+                });
+
+                let tailGroup3 = new THREE.Group();
+                tailGroup2.add(tailGroup3);
+                tailGroup3.position.z = -0.1;
+
+                gsap.to(tailGroup3.rotation, {
+                    keyframes: [
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -1.6
+                });
+                gsap.to(tailGroup3.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -1.6
+                });
+
+                let tailGroup4 = new THREE.Group();
+                tailGroup3.add(tailGroup4);
+                tailGroup4.position.z = -0.1;
+
+                gsap.to(tailGroup4.rotation, {
+                    keyframes: [
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -1.9
+                });
+                gsap.to(tailGroup4.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -1.9
+                });
+
+                let tailGroup5 = new THREE.Group();
+                tailGroup4.add(tailGroup5);
+                tailGroup5.position.z = -0.1;
+
+                gsap.to(tailGroup5.rotation, {
+                    keyframes: [
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -2.2
+                });
+                gsap.to(tailGroup5.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -2.2
+                });
+
+                let tailGroup6 = new THREE.Group();
+                tailGroup5.add(tailGroup6);
+                tailGroup6.position.z = -0.1;
+
+                gsap.to(tailGroup6.rotation, {
+                    keyframes: [
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -2.5
+                });
+                gsap.to(tailGroup6.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -2.5
+                });
+
+                let tailGroup7 = new THREE.Group();
+                tailGroup6.add(tailGroup7);
+                tailGroup7.position.z = -0.1;
+
+                gsap.to(tailGroup7.rotation, {
+                    keyframes: [
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -2.8
+                });
+                gsap.to(tailGroup7.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -2.8
+                });
+
+                let tailGroup8 = new THREE.Group();
+                tailGroup7.add(tailGroup8);
+                tailGroup8.position.z = -0.1;
+
+                gsap.to(tailGroup8.rotation, {
+                    keyframes: [
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -3.1
+                });
+                gsap.to(tailGroup8.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -3.1
+                });
+
+                let tailGroup9 = new THREE.Group();
+                tailGroup8.add(tailGroup9);
+                tailGroup9.position.z = -0.1;
+
+                gsap.to(tailGroup9.rotation, {
+                    keyframes: [
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -3.4
+                });
+                gsap.to(tailGroup9.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -3.4
+                });
+
+                let tailGroup10 = new THREE.Group();
+                tailGroup9.add(tailGroup10);
+                tailGroup10.position.z = -0.1;
+
+                gsap.to(tailGroup10.rotation, {
+                    keyframes: [
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -3.7
+                });
+                gsap.to(tailGroup10.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -3.7
+                });
+
+                let tailGroup11 = new THREE.Group();
+                tailGroup10.add(tailGroup11);
+                tailGroup11.position.z = -0.1;
+
+                gsap.to(tailGroup11.rotation, {
+                    keyframes: [
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -4
+                });
+                gsap.to(tailGroup11.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -4
+                });
+
+                let tailGroup12 = new THREE.Group();
+                tailGroup11.add(tailGroup12);
+                tailGroup12.position.z = -0.1;
+
+                gsap.to(tailGroup12.rotation, {
+                    keyframes: [
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -4.3
+                });
+                gsap.to(tailGroup12.position, {
+                    keyframes: [
+                        { y: -0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                        { y: 0.005, duration: 0.5, ease: 'power1.out' },
+                        { y: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -4.3
+                });
+
+                //head
+                let headGroup = new THREE.Group();
+                partNeckGroup5.add(headGroup);
+                headGroup.position.z = 0.05;
+
+                gsap.to(headGroup.rotation, {
+                    keyframes: [
+                        { x: -Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                        { x: Math.PI / 24, duration: 0.5, ease: 'power1.out' },
+                        { x: 0, duration: 0.5, ease: 'power1.in' },
+                    ],
+                    repeat: -1,
+                    delay: -1.5
+                });
+
+                //mouth
+                let mouthGroup = new THREE.Group();
+                headGroup.add(mouthGroup);
+                mouthGroup.position.z = 0.16;
+                mouthGroup.position.y = -0.04;
+
+                let mouthDownGroup = new THREE.Group();
+                mouthGroup.add(mouthDownGroup);
+                mouthDownGroup.rotation.x = Math.PI / 12;
+
+                gsap.to(mouthDownGroup.rotation, {
+                    x: 0,
+                    duration: 1,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'power.inOut'
+                });
+
+                let mouthTopGroup = new THREE.Group();
+                mouthGroup.add(mouthTopGroup);
+
+                //front leg
+                let frontThighGroup = new THREE.Group();
+                bodyGroup.add(frontThighGroup);
+                frontThighGroup.position.z = 0.26;
+                frontThighGroup.position.y = -0.06;
+                frontThighGroup.rotation.x = Math.PI / 2.5;
+
+                gsap.to(frontThighGroup.rotation, {
+                    x: Math.PI / 2.4,
+                    duration: 1,
+                    repeat: -1,
+                    delay: 0.5,
+                    yoyo: true,
+                    ease: 'power1.inOut'
+                });
+
+                let frontLegGroup = new THREE.Group();
+                frontThighGroup.add(frontLegGroup);
+                frontLegGroup.position.y = -0.24;
+                frontLegGroup.rotation.x = -Math.PI / 5;
+
+                let frontFootGroup = new THREE.Group();
+                frontLegGroup.add(frontFootGroup);
+                frontFootGroup.position.y = -0.26;
+                frontFootGroup.rotation.x = Math.PI / 3.5;
+
+                //back leg
+                let backThighGroup = new THREE.Group();
+                backThighGroup.position.z = -0.16;
+                backThighGroup.rotation.x = Math.PI / 3;
+
+                gsap.to(backThighGroup.rotation, {
+                    x: Math.PI / 2.8,
+                    duration: 1,
+                    repeat: -1,
+                    delay: 0.5,
+                    yoyo: true,
+                    ease: 'power1.inOut'
+                });
+
+                bodyGroup.add(backThighGroup);
+                let backLegGroup = new THREE.Group();
+                backLegGroup.position.y = -0.45;
+                backLegGroup.position.z = -0.06;
+                backLegGroup.rotation.x = Math.PI / 6;
+
+                backThighGroup.add(backLegGroup);
+                let backFootGroup = new THREE.Group();
+                backLegGroup.add(backFootGroup);
+                backFootGroup.position.y = -0.25;
+                backFootGroup.position.z = 0.05;
+                backFootGroup.rotation.x = Math.PI / 4;
+
+                //wing right
+                let boneWingInGroupRight = new THREE.Group();
+                bodyGroup.add(boneWingInGroupRight);
+                boneWingInGroupRight.position.x = -0.12;
+                boneWingInGroupRight.position.y = 0.1;
+                boneWingInGroupRight.position.z = 0.2;
+                boneWingInGroupRight.rotation.x = -Math.PI / 12;
+                boneWingInGroupRight.rotation.y = -Math.PI / 12;
+                boneWingInGroupRight.rotation.z = -Math.PI / 3;
+
+                gsap.to(boneWingInGroupRight.rotation, {
+                    z: Math.PI / 4,
+                    x: Math.PI / 12,
+                    duration: 1,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'power1.inOut'
+                });
+
+                let wingInGroupRight = new THREE.Group();
+                boneWingInGroupRight.add(wingInGroupRight);
+                wingInGroupRight.position.x = -0.28;
+
+                let boneWingOutGroupRight = new THREE.Group();
+                boneWingInGroupRight.add(boneWingOutGroupRight);
+                boneWingOutGroupRight.position.x = -0.56;
+                boneWingOutGroupRight.position.z = -0.02;
+                boneWingOutGroupRight.rotation.z = Math.PI / 3;
+
+                gsap.to(boneWingOutGroupRight.rotation, {
+                    z: -Math.PI / 9,
+                    duration: 1,
+                    delay: -0.5,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'power1.inOut'
+                });
+
+                let wingOutGroupRight = new THREE.Group();
+                boneWingOutGroupRight.add(wingOutGroupRight);
+                wingOutGroupRight.position.x = -0.28;
+
+                //wing left
+                let boneWingInGroupLeft = new THREE.Group();
+                bodyGroup.add(boneWingInGroupLeft);
+                boneWingInGroupLeft.position.x = 0.12;
+                boneWingInGroupLeft.position.y = 0.1;
+                boneWingInGroupLeft.position.z = 0.2;
+                boneWingInGroupLeft.rotation.x = -Math.PI / 12;
+                boneWingInGroupLeft.rotation.y = Math.PI / 12;
+                boneWingInGroupLeft.rotation.z = Math.PI / 3;
+
+                gsap.to(boneWingInGroupLeft.rotation, {
+                    z: -Math.PI / 4,
+                    x: Math.PI / 12,
+                    duration: 1,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'power1.inOut'
+                });
+
+                let wingInGroupLeft = new THREE.Group();
+                boneWingInGroupLeft.add(wingInGroupLeft);
+                wingInGroupLeft.position.x = 0.28;
+
+                let boneWingOutGroupLeft = new THREE.Group();
+                boneWingInGroupLeft.add(boneWingOutGroupLeft);
+                boneWingOutGroupLeft.position.x = 0.56;
+                boneWingOutGroupLeft.position.z = -0.02;
+                boneWingOutGroupLeft.rotation.z = -Math.PI / 3;
+
+                gsap.to(boneWingOutGroupLeft.rotation, {
+                    z: Math.PI / 9,
+                    duration: 1,
+                    delay: -0.5,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'power1.inOut'
+                });
+
+                let wingOutGroupLeft = new THREE.Group();
+                boneWingOutGroupLeft.add(wingOutGroupLeft);
+                wingOutGroupLeft.position.x = 0.28;
+
+                function createBody() {
+                    let dragonBox = new THREE.BoxGeometry(0.24, 0.24, 0.64);
+
+                    const DragonRightMaterial = mat1(88, 64, 152, 88);
+                    const DragonLeftMaterial = mat1(0, 64, 64, 88);
+                    const DragonTopMaterial = mat1(64, 0, 88, 64);
+                    const DragonBottomMaterial = mat1(88, 0, 112, 64);
+                    const DragonFrontMaterial = mat1(64, 64, 88, 88);
+                    const DragonBackMaterial = mat1(152, 64, 176, 88);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+
+                    bodyGroup.add(mesh);
+                }
+                createBody();
+
+                function neck() {
+                    const dragonBox = new THREE.BoxGeometry(0.1, 0.1, 0.1);
+
+
+                    const DragonRightMaterial = mat1(212, 114, 222, 124);
+                    const DragonLeftMaterial = mat1(192, 114, 202, 124);
+                    const DragonTopMaterial = mat1(202, 104, 212, 114);
+                    const DragonBottomMaterial = mat1(212, 104, 222, 114);
+                    const DragonFrontMaterial = mat1(202, 114, 212, 124);
+                    const DragonBackMaterial = mat1(222, 114, 232, 124);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+
+                    function cloneMeshNeck1() {
+                        const cloneMesh = mesh.clone();
+                        partNeckGroup1.add(cloneMesh);
+                        partNeckGroup1.position.z = 0.05;
+                        partNeckGroup1.add(neckScales());
+                    }
+                    cloneMeshNeck1();
+
+                    function cloneMeshNeck2() {
+                        const cloneMesh = mesh.clone();
+                        partNeckGroup2.add(cloneMesh);
+                        partNeckGroup2.position.z = 0.1;
+                        partNeckGroup2.add(neckScales());
+                    }
+                    cloneMeshNeck2();
+
+                    function cloneMeshNeck3() {
+                        const cloneMesh = mesh.clone();
+                        partNeckGroup3.add(cloneMesh);
+                        partNeckGroup3.position.z = 0.1;
+                        partNeckGroup3.add(neckScales());
+                    }
+                    cloneMeshNeck3();
+
+                    function cloneMeshNeck4() {
+                        const cloneMesh = mesh.clone();
+                        partNeckGroup4.add(cloneMesh);
+                        partNeckGroup4.position.z = 0.1;
+                        partNeckGroup4.add(neckScales());
+                    }
+                    cloneMeshNeck4();
+
+                    function cloneMeshNeck5() {
+                        const cloneMesh = mesh.clone();
+                        partNeckGroup5.add(cloneMesh);
+                        partNeckGroup5.position.z = 0.1;
+                        partNeckGroup5.add(neckScales());
+                    }
+                    cloneMeshNeck5();
+                }
+                neck();
+
+                function tailScales() {
+                    const dragonBox = new THREE.BoxGeometry(0.02, 0.08, 0.12);
+
+
+                    const DragonRightMaterial = mat1(8, 6, 14, 10);
+                    const DragonLeftMaterial = mat1(0, 6, 6, 10);
+                    const DragonTopMaterial = mat1(6, 0, 8, 6);
+                    const DragonBottomMaterial = mat1(8, 0, 10, 6);
+                    const DragonFrontMaterial = mat1(6, 6, 8, 10);
+                    const DragonBackMaterial = mat1(14, 6, 16, 10);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+
+                    mesh.scale.set(1, 0.75, 0.5);
+                    mesh.position.y = 0.08;
+
+                    return mesh;
+                }
+
+                function tail() {
+                    const dragonBox = new THREE.BoxGeometry(0.1, 0.1, 0.1);
+
+
+                    const DragonRightMaterial = mat1(212, 114, 222, 124);
+                    const DragonLeftMaterial = mat1(192, 114, 202, 124);
+                    const DragonTopMaterial = mat1(202, 104, 212, 114);
+                    const DragonBottomMaterial = mat1(212, 104, 222, 114);
+                    const DragonFrontMaterial = mat1(202, 114, 212, 124);
+                    const DragonBackMaterial = mat1(222, 114, 232, 124);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+
+                    function tailPart1() {
+                        const cloneMesh = mesh.clone();
+                        tailGroup1.add(cloneMesh);
+                        tailGroup1.add(tailScales());
+                    }
+                    tailPart1();
+
+                    function tailPart2() {
+                        const cloneMesh = mesh.clone();
+                        tailGroup2.add(cloneMesh);
+                        tailGroup2.add(tailScales());
+                    }
+                    tailPart2();
+
+                    function tailPart3() {
+                        const cloneMesh = mesh.clone();
+                        tailGroup3.add(cloneMesh);
+                        tailGroup3.add(tailScales());
+                    }
+                    tailPart3();
+
+                    function tailPart4() {
+                        const cloneMesh = mesh.clone();
+                        tailGroup4.add(cloneMesh);
+                        tailGroup4.add(tailScales());
+                    }
+                    tailPart4();
+
+                    function tailPart5() {
+                        const cloneMesh = mesh.clone();
+                        tailGroup5.add(cloneMesh);
+                        tailGroup5.add(tailScales());
+                    }
+                    tailPart5();
+
+                    function tailPart6() {
+                        const cloneMesh = mesh.clone();
+                        tailGroup6.add(cloneMesh);
+                        tailGroup6.add(tailScales());
+                    }
+                    tailPart6();
+
+
+                    function tailPart7() {
+                        const cloneMesh = mesh.clone();
+                        tailGroup7.add(cloneMesh);
+                        tailGroup7.add(tailScales());
+                    }
+                    tailPart7();
+
+                    function tailPart8() {
+                        const cloneMesh = mesh.clone();
+                        tailGroup8.add(cloneMesh);
+                        tailGroup8.add(tailScales());
+                    }
+                    tailPart8();
+
+                    function tailPart9() {
+                        const cloneMesh = mesh.clone();
+                        tailGroup9.add(cloneMesh);
+                        tailGroup9.add(tailScales());
+                    }
+                    tailPart9();
+
+                    function tailPart10() {
+                        const cloneMesh = mesh.clone();
+                        tailGroup10.add(cloneMesh);
+                        tailGroup10.add(tailScales());
+                    }
+                    tailPart10();
+
+                    function tailPart11() {
+                        const cloneMesh = mesh.clone();
+                        tailGroup11.add(cloneMesh);
+                        tailGroup11.add(tailScales());
+                    }
+                    tailPart11();
+
+                    function tailPart12() {
+                        const cloneMesh = mesh.clone();
+                        tailGroup12.add(cloneMesh);
+                        tailGroup12.add(tailScales());
+                    }
+                    tailPart12();
+                }
+                tail();
+
+                function bodyScales() {
+                    const dragonBox = new THREE.BoxGeometry(0.02, 0.08, 0.12);
+
+
+                    const DragonRightMaterial = mat1(8, 6, 14, 10);
+                    const DragonLeftMaterial = mat1(0, 6, 6, 10);
+                    const DragonTopMaterial = mat1(6, 0, 8, 6);
+                    const DragonBottomMaterial = mat1(8, 0, 10, 6);
+                    const DragonFrontMaterial = mat1(6, 6, 8, 10);
+                    const DragonBackMaterial = mat1(14, 6, 16, 10);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+
+                    for (let i = 0; i < 3; ++i) {
+                        const cloneMesh = mesh.clone();
+                        cloneMesh.position.y = 0.16;
+                        cloneMesh.position.z = -i * 0.2 + 0.2;
+                        bodyGroup.add(cloneMesh);
+                    }
+                }
+                bodyScales();
+
+                function neckScales() {
+                    const dragonBox = new THREE.BoxGeometry(0.02, 0.08, 0.12);
+
+
+                    const DragonRightMaterial = mat1(8, 6, 14, 10);
+                    const DragonLeftMaterial = mat1(0, 6, 6, 10);
+                    const DragonTopMaterial = mat1(6, 0, 8, 6);
+                    const DragonBottomMaterial = mat1(8, 0, 10, 6);
+                    const DragonFrontMaterial = mat1(6, 6, 8, 10);
+                    const DragonBackMaterial = mat1(14, 6, 16, 10);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+
+                    mesh.position.y = 0.08;
+                    mesh.scale.set(1, 0.75, 0.5)
+                    const cloneMesh = mesh.clone();
+
+                    return cloneMesh;
+                }
+
+                function headScales1() {
+                    const dragonBox = new THREE.BoxGeometry(0.02, 0.08, 0.12);
+
+
+                    const DragonRightMaterial = mat1(8, 6, 14, 10);
+                    const DragonLeftMaterial = mat1(0, 6, 6, 10);
+                    const DragonTopMaterial = mat1(6, 0, 8, 6);
+                    const DragonBottomMaterial = mat1(8, 0, 10, 6);
+                    const DragonFrontMaterial = mat1(6, 6, 8, 10);
+                    const DragonBackMaterial = mat1(14, 6, 16, 10);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+
+                    const cloneMesh = mesh.clone();
+                    cloneMesh.scale.set(1, 0.75, 0.5)
+                    cloneMesh.position.y = 0.1;
+                    cloneMesh.position.x = -0.04;
+                    cloneMesh.position.z = 0.07;
+
+                    return cloneMesh;
+                }
+
+                function headScales2() {
+                    const dragonBox = new THREE.BoxGeometry(0.02, 0.08, 0.12);
+
+
+                    const DragonRightMaterial = mat1(8, 6, 14, 10);
+                    const DragonLeftMaterial = mat1(0, 6, 6, 10);
+                    const DragonTopMaterial = mat1(6, 0, 8, 6);
+                    const DragonBottomMaterial = mat1(8, 0, 10, 6);
+                    const DragonFrontMaterial = mat1(6, 6, 8, 10);
+                    const DragonBackMaterial = mat1(14, 6, 16, 10);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+
+                    const cloneMesh = mesh.clone();
+                    cloneMesh.scale.set(1, 0.75, 0.5)
+                    cloneMesh.position.y = 0.1;
+                    cloneMesh.position.x = 0.04;
+                    cloneMesh.position.z = 0.07;
+
+                    return cloneMesh;
+                }
+
+                function dragonHead() {
+                    const dragonBox = new THREE.BoxGeometry(0.16, 0.16, 0.16);
+
+
+                    const DragonRightMaterial = mat1(144, 46, 160, 62);
+                    const DragonLeftMaterial = mat1(112, 46, 128, 62);
+                    const DragonTopMaterial = mat1(128, 30, 144, 46);
+                    const DragonBottomMaterial = mat1(144, 30, 160, 46);
+                    const DragonFrontMaterial = mat1(128, 46, 144, 62);
+                    const DragonBackMaterial = mat1(160, 46, 176, 62);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+                    mesh.position.z = 0.08;
+                    headGroup.add(mesh);
+                    headGroup.add(headScales1());
+                    headGroup.add(headScales2());
+                }
+                dragonHead();
+
+                function mouthDown() {
+                    const dragonBox = new THREE.BoxGeometry(0.12, 0.04, 0.16);
+
+
+                    const DragonRightMaterial = mat1(204, 81, 219, 85);
+                    const DragonLeftMaterial = mat1(176, 81, 192, 85);
+                    const DragonTopMaterial = mat1(192, 65, 204, 81);
+                    const DragonBottomMaterial = mat1(204, 65, 216, 81);
+                    const DragonFrontMaterial = mat1(192, 81, 204, 85);
+                    const DragonBackMaterial = mat1(219, 81, 231, 85);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+
+                    mesh.position.y = -0.02;
+                    mesh.position.z = 0.08;
+                    mouthDownGroup.add(mesh);
+                }
+                mouthDown();
+
+                function mouthTop() {
+                    const dragonBox = new THREE.BoxGeometry(0.12, 0.05, 0.16);
+
+
+                    const DragonRightMaterial = mat1(204, 60, 219, 65);
+                    const DragonLeftMaterial = mat1(176, 60, 192, 65);
+                    const DragonTopMaterial = mat1(192, 44, 204, 60);
+                    const DragonBottomMaterial = mat1(204, 44, 216, 60);
+                    const DragonFrontMaterial = mat1(192, 60, 204, 65);
+                    const DragonBackMaterial = mat1(219, 60, 231, 65);
+
+                    DragonBottomMaterial.map.rotation = Math.PI;
+                    DragonBottomMaterial.map.center.set(0.5, 0.5);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+
+                    mesh.position.y = 0.025;
+                    mesh.position.z = 0.08;
+                    mouthTopGroup.add(mesh);
+                    mouthTopGroup.add(noseDragon1());
+                    mouthTopGroup.add(noseDragon2());
+                }
+                mouthTop();
+
+                function noseDragon1() {
+                    const dragonBox = new THREE.BoxGeometry(0.02, 0.02, 0.04);
+
+
+                    const DragonRightMaterial = mat1(118, 4, 122, 6);
+                    const DragonLeftMaterial = mat1(112, 4, 116, 6);
+                    const DragonTopMaterial = mat1(116, 0, 118, 4);
+                    const DragonBottomMaterial = mat1(118, 0, 120, 4);
+                    const DragonFrontMaterial = mat1(116, 4, 118, 6);
+                    const DragonBackMaterial = mat1(122, 4, 124, 6);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+
+                    mesh.position.y = 0.06;
+                    mesh.position.z = 0.12;
+                    mesh.position.x = -0.04;
+
+                    return mesh;
+                }
+
+                function noseDragon2() {
+                    const dragonBox = new THREE.BoxGeometry(0.02, 0.02, 0.04);
+
+
+                    const DragonRightMaterial = mat1(118, 4, 122, 6);
+                    const DragonLeftMaterial = mat1(112, 4, 116, 6);
+                    const DragonTopMaterial = mat1(116, 0, 118, 4);
+                    const DragonBottomMaterial = mat1(118, 0, 120, 4);
+                    const DragonFrontMaterial = mat1(116, 4, 118, 6);
+                    const DragonBackMaterial = mat1(122, 4, 124, 6);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+
+                    mesh.position.y = 0.06;
+                    mesh.position.z = 0.12;
+                    mesh.position.x = 0.04;
+
+                    return mesh;
+                }
+
+                function frontThigh() {
+                    const dragonBox = new THREE.BoxGeometry(0.08, 0.24, 0.08);
+
+
+                    const DragonRightMaterial = mat1(128, 112, 136, 136);
+                    const DragonLeftMaterial = mat1(112, 112, 120, 136);
+                    const DragonTopMaterial = mat1(120, 104, 128, 112);
+                    const DragonBottomMaterial = mat1(128, 104, 136, 112);
+                    const DragonFrontMaterial = mat1(120, 112, 128, 136);
+                    const DragonBackMaterial = mat1(128, 112, 136, 136);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    for (let i = 0; i < 2; ++i) {
+                        const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                        mesh.castShadow = true;
+                        mesh.receiveShadow = true;
+                        mesh.position.x = -0.12 + (i * 0.24);
+                        mesh.position.y = -0.12;
+                        frontThighGroup.add(mesh);
+                    }
+                }
+                frontThigh();
+
+                function frontLeg() {
+                    const dragonBox = new THREE.BoxGeometry(0.06, 0.24, 0.06);
+
+
+                    const DragonRightMaterial = mat1(238, 144, 244, 168);
+                    const DragonLeftMaterial = mat1(226, 144, 232, 168);
+                    const DragonTopMaterial = mat1(232, 138, 238, 144);
+                    const DragonBottomMaterial = mat1(238, 138, 244, 144);
+                    const DragonFrontMaterial = mat1(232, 144, 238, 168);
+                    const DragonBackMaterial = mat1(244, 144, 250, 168);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    for (let i = 0; i < 2; ++i) {
+                        const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                        mesh.castShadow = true;
+                        mesh.receiveShadow = true;
+                        mesh.position.x = -0.12 + (i * 0.24);
+                        mesh.position.y = -0.12;
+                        frontLegGroup.add(mesh);
+                    }
+                }
+                frontLeg();
+
+
+                function frontFoot() {
+                    const dragonBox = new THREE.BoxGeometry(0.08, 0.04, 0.16);
+
+                    const DragonRightMaterial = mat1(168, 120, 184, 124);
+                    const DragonLeftMaterial = mat1(144, 120, 160, 124);
+                    const DragonTopMaterial = mat1(160, 104, 168, 120);
+                    const DragonBottomMaterial = mat1(168, 104, 176, 120);
+                    DragonBottomMaterial.map.rotation = Math.PI;
+                    DragonBottomMaterial.map.center.set(0.5, 0.5);
+
+                    const DragonFrontMaterial = mat1(160, 120, 168, 124);
+                    const DragonBackMaterial = mat1(174, 120, 182, 124);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    for (let i = 0; i < 2; ++i) {
+                        const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                        mesh.castShadow = true;
+                        mesh.receiveShadow = true;
+                        mesh.position.x = -0.12 + (i * 0.24);
+                        mesh.position.z = 0.05;
+                        frontFootGroup.add(mesh);
+                    }
+                }
+                frontFoot();
+
+                //back leg
+                function backThigh() {
+                    const dragonBox = new THREE.BoxGeometry(0.16, 0.32, 0.16);
+
+
+                    const DragonRightMaterial = mat1(32, 16, 48, 48);
+                    const DragonLeftMaterial = mat1(0, 16, 16, 48);
+                    const DragonTopMaterial = mat1(16, 0, 32, 16);
+                    const DragonBottomMaterial = mat1(32, 0, 48, 16);
+                    const DragonFrontMaterial = mat1(16, 16, 32, 48);
+                    const DragonBackMaterial = mat1(48, 16, 64, 48);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    for (let i = 0; i < 2; ++i) {
+                        const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                        mesh.castShadow = true;
+                        mesh.receiveShadow = true;
+                        mesh.position.x = -0.12 + (i * 0.24);
+                        mesh.position.y = -0.16;
+                        backThighGroup.add(mesh);
+                    }
+                }
+                backThigh();
+
+                function backLeg() {
+                    const dragonBox = new THREE.BoxGeometry(0.12, 0.32, 0.12);
+
+
+                    const DragonRightMaterial = mat1(220, 12, 232, 44);
+                    const DragonLeftMaterial = mat1(196, 12, 208, 44);
+                    const DragonTopMaterial = mat1(208, 0, 220, 12);
+                    const DragonBottomMaterial = mat1(220, 0, 232, 12);
+                    const DragonFrontMaterial = mat1(208, 12, 220, 44);
+                    const DragonBackMaterial = mat1(232, 12, 244, 44);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    for (let i = 0; i < 2; ++i) {
+                        const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                        mesh.castShadow = true;
+                        mesh.receiveShadow = true;
+                        mesh.position.x = -0.12 + (i * 0.24);
+                        backLegGroup.add(mesh);
+                    }
+                }
+                backLeg();
+
+                function backFoot() {
+                    const dragonBox = new THREE.BoxGeometry(0.18, 0.06, 0.24);
+
+                    const DragonRightMaterial = mat1(154, 24, 178, 30);
+                    const DragonLeftMaterial = mat1(112, 24, 136, 30);
+                    const DragonTopMaterial = mat1(136, 0, 154, 24);
+                    const DragonBottomMaterial = mat1(154, 0, 172, 24);
+                    DragonBottomMaterial.map.rotation = Math.PI;
+                    DragonBottomMaterial.map.center.set(0.5, 0.5);
+
+                    const DragonFrontMaterial = mat1(136, 24, 154, 30);
+                    const DragonBackMaterial = mat1(178, 24, 196, 30);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    for (let i = 0; i < 2; ++i) {
+                        const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                        mesh.castShadow = true;
+                        mesh.receiveShadow = true;
+                        mesh.position.x = -0.12 + (i * 0.24);
+                        backFootGroup.add(mesh);
+                    }
+                }
+                backFoot();
+
+                //wing
+                function boneWingInLeft() {
+                    const dragonBox = new THREE.BoxGeometry(0.56, 0.08, 0.08);
+
+                    const DragonRightMaterial = mat1(176, 96, 184, 104);
+                    const DragonLeftMaterial = mat1(112, 96, 120, 104);
+                    const DragonTopMaterial = mat1(120, 88, 176, 96);
+                    const DragonBottomMaterial = mat1(176, 88, 232, 96);
+                    const DragonFrontMaterial = mat1(120, 96, 176, 104);
+                    const DragonBackMaterial = mat1(184, 96, 240, 104);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+                    mesh.position.x = 0.28;
+                    boneWingInGroupLeft.add(mesh);
+                }
+                boneWingInLeft();
+
+                function boneWingInRight() {
+                    const dragonBox = new THREE.BoxGeometry(0.56, 0.08, 0.08);
+
+                    const DragonRightMaterial = mat1(176, 96, 184, 104);
+                    const DragonLeftMaterial = mat1(112, 96, 120, 104);
+                    const DragonTopMaterial = mat1(120, 88, 176, 96);
+                    const DragonBottomMaterial = mat1(176, 88, 232, 96);
+                    const DragonFrontMaterial = mat1(120, 96, 176, 104);
+                    const DragonBackMaterial = mat1(184, 96, 240, 104);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+                    mesh.position.x = -0.28;
+                    boneWingInGroupRight.add(mesh);
+                }
+                boneWingInRight();
+
+                function wingInLeft() {
+                    const dragonBox = new THREE.BoxGeometry(0.56, 0.0001, 0.56);
+
+                    const DragonRightMaterial = 0;
+                    const DragonLeftMaterial = 0;
+                    const DragonTopMaterial = mat1(56, 88, 112, 144);
+                    const DragonBottomMaterial = mat1(0, 88, 56, 144);
+                    DragonTopMaterial.map.repeat.y = -1;
+                    DragonTopMaterial.map.center.set(0.5, 0.5);
+                    DragonTopMaterial.map.rotation = Math.PI;
+
+                    DragonBottomMaterial.map.rotation = Math.PI;
+                    DragonBottomMaterial.map.center.set(0.5, 0.5);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+                    mesh.position.z = -0.32;
+                    wingInGroupLeft.add(mesh);
+                }
+                wingInLeft();
+
+                function wingInRight() {
+                    const dragonBox = new THREE.BoxGeometry(0.56, 0.0001, 0.56);
+
+                    const DragonRightMaterial = 0;
+                    const DragonLeftMaterial = 0;
+                    const DragonTopMaterial = mat1(56, 88, 112, 144);
+                    const DragonBottomMaterial = mat1(0, 88, 56, 144);
+
+                    DragonBottomMaterial.map.repeat.y = -1;
+                    DragonBottomMaterial.map.center.set(0.5, 0.5);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+                    mesh.position.z = -0.32;
+                    wingInGroupRight.add(mesh);
+                }
+                wingInRight();
+
+                //wing out
+                function boneWinOutLeft() {
+                    const dragonBox = new THREE.BoxGeometry(0.56, 0.04, 0.04);
+
+                    const DragonRightMaterial = mat1(172, 140, 176, 144);
+                    const DragonLeftMaterial = mat1(112, 140, 116, 144);
+                    const DragonTopMaterial = mat1(116, 136, 172, 140);
+                    const DragonBottomMaterial = mat1(172, 136, 228, 140);
+                    const DragonFrontMaterial = mat1(116, 140, 172, 144);
+                    const DragonBackMaterial = mat1(180, 140, 232, 144);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+                    mesh.position.x = 0.28;
+                    boneWingOutGroupLeft.add(mesh);
+                }
+                boneWinOutLeft();
+
+                function boneWinOutRight() {
+                    const dragonBox = new THREE.BoxGeometry(0.56, 0.04, 0.04);
+
+                    const DragonRightMaterial = mat1(172, 140, 176, 144);
+                    const DragonLeftMaterial = mat1(112, 140, 116, 144);
+                    const DragonTopMaterial = mat1(116, 136, 172, 140);
+                    const DragonBottomMaterial = mat1(172, 136, 228, 140);
+                    const DragonFrontMaterial = mat1(116, 140, 172, 144);
+                    const DragonBackMaterial = mat1(180, 140, 232, 144);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial,
+                        DragonFrontMaterial,
+                        DragonBackMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+                    mesh.position.x = -0.28;
+                    boneWingOutGroupRight.add(mesh);
+                }
+                boneWinOutRight();
+
+                function wingOutLeft() {
+                    const dragonBox = new THREE.BoxGeometry(0.56, 0.0001, 0.56);
+
+                    const DragonRightMaterial = 0;
+                    const DragonLeftMaterial = 0;
+                    const DragonTopMaterial = mat1(56, 88, 112, 144);
+                    const DragonBottomMaterial = mat1(0, 88, 56, 144);
+
+                    DragonBottomMaterial.map.repeat.y = -1;
+                    DragonBottomMaterial.map.center.set(0.5, 0.5);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+                    mesh.position.z = -0.3;
+                    wingOutGroupLeft.add(mesh);
+                }
+                wingOutLeft();
+
+                function wingOutRight() {
+                    const dragonBox = new THREE.BoxGeometry(0.56, 0.0001, 0.56);
+
+                    const DragonRightMaterial = 0;
+                    const DragonLeftMaterial = 0;
+                    const DragonTopMaterial = mat1(56, 88, 112, 144);
+                    const DragonBottomMaterial = mat1(0, 88, 56, 144);
+
+                    DragonTopMaterial.map.repeat.y = -1;
+                    DragonTopMaterial.map.rotation = Math.PI;
+                    DragonTopMaterial.map.center.set(0.5, 0.5);
+
+                    DragonBottomMaterial.map.rotation = Math.PI;
+                    DragonBottomMaterial.map.center.set(0.5, 0.5);
+
+                    const DragonMaterial = [
+                        DragonRightMaterial,
+                        DragonLeftMaterial,
+                        DragonTopMaterial,
+                        DragonBottomMaterial
+                    ]
+
+                    const mesh = new THREE.Mesh(dragonBox, DragonMaterial);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+                    mesh.position.z = -0.3;
+                    wingOutGroupRight.add(mesh);
+                }
+                wingOutRight();
+            };
+        }
+        EnderDragon();
+    </script>
+</body>
+
+</html>

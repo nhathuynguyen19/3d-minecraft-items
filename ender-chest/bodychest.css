@@ -1,0 +1,63 @@
+.bodychest {
+    position: relative;
+    transform-style: preserve-3d;
+    top: 0;
+    width: 140px;
+    height: 140px;
+}
+
+.downbodychest,
+.topbodychest,
+.frontbodychest,
+.endereye,
+.backbodychest,
+.leftbodychest,
+.rightbodychest {
+    position: absolute;
+}
+.downbodychest {
+    z-index: 1;
+    top: 0;
+}
+.topbodychest {
+    top: 0;
+    transform: translateZ(100px);
+    animation: shadelid 5s infinite linear;
+}
+.backbodychest {
+    position: relative;
+    top: -100px;
+    z-index: 3;
+    transform-origin: bottom;
+    transform: rotateX(-90deg);
+}
+.leftbodychest {
+    z-index: 2;
+    rotate: -90deg;
+    transform-origin: bottom;
+    top: -30px;
+    left: -70px;
+    transform: rotateX(-90deg);
+}
+.rightbodychest {
+    z-index: 2;
+    top: -30px;
+    right: -70px;
+    transform-origin: bottom;
+    rotate: 90deg;
+    transform: rotateX(-90deg);
+}
+.frontbodychest {
+    bottom: 0;
+    z-index: 2;
+    transform-origin: bottom;
+    transform: rotateX(-90deg);
+}
+.endereye {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 80px;
+    height:80px;
+    transform: translate(-50%);
+}

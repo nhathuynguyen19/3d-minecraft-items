@@ -1,0 +1,15 @@
+.enderchest {
+    position: relative;
+    transform-style: preserve-3d;
+    width: 140px;
+    height: 140px;
+    animation: rotate 40s infinite linear;
+}
+@keyframes rotate {
+    0% {
+        transform: rotateX(45deg) rotateZ(45deg);
+    }
+    100% {
+        transform: rotateX(45deg) rotateZ(45deg);
+    }
+}
