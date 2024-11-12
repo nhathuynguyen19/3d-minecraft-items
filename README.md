@@ -1,10 +1,4 @@
-# Hướng dẫn
-## Tải về
-- sao chép đường dẫn
-- di chuyển đến folder muốn tải xuống trong ổ đĩa của bạn
-- mở gitbash
-- gõ gitclone <url>
-## Thực thi
+## Hướng dẫn mở file html
 - mở 1 trong các thư mục bên trong /Tiktok/ bằng vscode
-- cài đặt extention Live server
+- cài đặt extention live server
 - mở file html bằng live server
