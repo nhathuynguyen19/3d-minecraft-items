@@ -1,0 +1,2677 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            perspective: 1000px;
+        }
+
+        #primaryBlock {
+            width: 160px;
+            height: 160px;
+            animation: rotateEnchan infinite linear;
+            transform-style: preserve-3d;
+            animation-duration: 7s;
+        }
+
+        /*mat tren*/
+        .matTren {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #6A002F;
+        }
+
+        .inMatTren1 {
+            width: 140px;
+            height: 140px;
+            background-color: #7D0728;
+        }
+
+        .inMatTren2 {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            background-color: #A02829;
+        }
+
+        .inMatTren2-1 {
+            width: 60px;
+            height: 140px;
+        }
+
+        .inMatTren2-2 {
+            width: 140px;
+            height: 60px;
+        }
+
+        .inMatTren2-3 {
+            width: 80px;
+            height: 100px;
+        }
+
+        .inMatTren2-4 {
+            width: 100px;
+            height: 80px;
+        }
+
+        .inMatTren3 {
+            position: absolute;
+            background-color: #721D32;
+        }
+
+        .inMatTren3-1 {
+            width: 20px;
+            height: 100px;
+        }
+
+        .inMatTren3-2 {
+            width: 100px;
+            height: 20px;
+        }
+
+        .inMatTren3-3 {
+            width: 80px;
+            height: 60px;
+        }
+
+        .inMatTren3-4 {
+            width: 60px;
+            height: 80px;
+        }
+
+        .inMatTren4 {
+            position: absolute;
+            background-color: #57162C;
+        }
+
+        .inMatTren4-1 {
+            width: 40px;
+            height: 80px;
+        }
+
+        .inMatTren4-2 {
+            width: 80px;
+            height: 40px;
+        }
+
+        .inMatTren4-3 {
+            width: 60px;
+            height: 60px;
+        }
+
+        /*diamond part*/
+        .goc1 {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .goc2 {
+            position: absolute;
+            transform-origin: left top;
+            rotate: 90deg;
+            right: 0;
+            top: 0;
+        }
+
+        .goc3 {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            transform-origin: left top;
+            rotate: -90deg;
+        }
+
+        .goc4 {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            transform-origin: left top;
+            rotate: 180deg;
+        }
+
+        .goc5 {
+            position: absolute;
+            right: 0;
+            transform-origin: left top;
+            rotate: 90deg;
+        }
+
+        .ingoc {
+            position: absolute;
+        }
+
+        .inGoc1-1 {
+            width: 30px;
+            height: 40px;
+            background-color: #49EAD0;
+        }
+
+        .inGoc1-2 {
+            width: 40px;
+            height: 30px;
+            background-color: #49EAD0;
+        }
+
+        .inGoc2-1 {
+            width: 10px;
+            height: 40px;
+            background-color: #2BCAB0;
+        }
+
+        .inGoc2-2 {
+            width: 40px;
+            height: 10px;
+            background-color: #2BCAB0;
+        }
+
+        .inGoc3-1 {
+            width: 30px;
+            height: 30px;
+            background-color: #C0F8EF;
+        }
+
+        .inGoc4-1 {
+            width: 20px;
+            height: 20px;
+            margin-top: 10px;
+            margin-left: 10px;
+            background-color: #A0F3E5;
+        }
+
+        .inGoc5-1 {
+            width: 10px;
+            height: 10px;
+            background-color: #FBFBFD;
+        }
+
+        /*matben*/
+        .allMatBen {
+            position: absolute;
+            width: 160px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .matBen1 {
+            transform-origin: top;
+            transform: rotateX(-90deg);
+        }
+
+        .matBen2 {
+            rotate: -90deg;
+            top: 80px;
+            right: -80px;
+            transform-origin: top;
+            transform: rotateX(-90deg);
+
+        }
+
+        .matBen3 {
+            top: 0;
+            transform-origin: top;
+            transform: rotateX(-90deg);
+        }
+
+        .matBen4 {
+            left: -80px;
+            bottom: -40px;
+            rotate: 90deg;
+            transform-origin: top;
+            transform: rotateX(-90deg);
+        }
+
+        .matduoi {
+            top: 0;
+            transform: translateZ(-120px);
+        }
+
+        .rowMatBen {
+            width: 160px;
+            height: 10px;
+        }
+
+        .colMatBen {
+            width: 10px;
+            height: 10px;
+            float: left;
+        }
+
+        /*side tham*/
+        .sideTham {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .inSideTham {
+            position: absolute;
+        }
+
+        .inSideTham1-1 {
+            width: 80px;
+            height: 20px;
+            background-color: #6A002F;
+        }
+
+        .inSideTham1-2 {
+            width: 60px;
+            height: 30px;
+            background-color: #6A002F;
+        }
+
+        .inSideTham1-3 {
+            width: 40px;
+            height: 40px;
+            background-color: #6A002F;
+        }
+
+        .inSideTham1-4 {
+            width: 20px;
+            height: 50px;
+            background-color: #6A002F;
+        }
+
+        .inSideTham2-1 {
+            width: 60px;
+            height: 10px;
+            margin-top: 10px;
+            background-color: #7D0728;
+        }
+
+        .inSideTham3-1 {
+            width: 40px;
+            height: 20px;
+            margin-top: 10px;
+            background-color: #A02829;
+        }
+
+        .inSideTham3-2 {
+            width: 20px;
+            height: 30px;
+            margin-top: 10px;
+            background-color: #A02829;
+        }
+
+        @keyframes rotateEnchan {
+            0% {
+                transform: rotateX(60deg) rotateZ(0deg);
+            }
+
+            100% {
+                transform: rotateX(60deg) rotateZ(360deg);
+            }
+        }
+
+        /*book*/
+        #allBook {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            transform-style: preserve-3d;
+            top: 50%;
+            left: 50%;
+            display: flex;
+            justify-content: center;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        /*center cover*/
+        .centerCover {
+            position: relative;
+            width: 20px;
+            height: 100px;
+            background-color: #583919;
+            transform-style: preserve-3d;
+            animation: rotate infinite linear;
+            animation-duration: 7s;
+        }
+
+        /*cover*/
+        .cover {
+            position: absolute;
+            width: 60px;
+            height: 100px;
+            transform-style: preserve-3d;
+        }
+
+        .row {
+            height: 10px;
+            width: 60px;
+        }
+
+        .col {
+            width: 10px;
+            height: 10px;
+            float: left;
+            background-color: #A97131;
+        }
+
+        .coverColor1 {
+            width: 10px;
+            height: 10px;
+            background-color: #66431C;
+        }
+
+        .coverColor2 {
+            width: 10px;
+            height: 10px;
+            background-color: #895A25;
+        }
+
+        .coverColor3 {
+            width: 10px;
+            height: 10px;
+            background-color: #FFE500;
+        }
+
+        .coverColor4 {
+            width: 10px;
+            height: 10px;
+            background-color: #E9A100;
+        }
+
+        .coverColor5 {
+            width: 10px;
+            height: 10px;
+            background-color: white;
+        }
+
+        .coverColor6 {
+            width: 10px;
+            height: 10px;
+            background-color: #B9ADA1;
+        }
+
+        .coverLeft {
+            transform-origin: left;
+            animation: coverLeftAnimation infinite linear;
+            animation-duration: 7s;
+        }
+
+        .coverRight {
+            right: -60px;
+            transform-origin: left;
+            animation: coverRightAnimation infinite linear;
+            animation-duration: 7s;
+        }
+
+        /*block paper*/
+        .frontBlockPaper {
+            position: absolute;
+            width: 50px;
+            height: 80px;
+            background-color: #B9B195;
+            transform-style: preserve-3d;
+        }
+
+        .bottom {
+            position: absolute;
+            bottom: -10px;
+            height: 10px;
+            width: 50px;
+            background-color: #B9B195;
+            transform-origin: top;
+            transform: rotateX(-90deg);
+        }
+
+        .top {
+            position: absolute;
+            top: -10px;
+            height: 10px;
+            width: 50px;
+            background-color: #B9B195;
+            transform-origin: bottom;
+            transform: rotateX(90deg);
+        }
+
+        .right {
+            position: absolute;
+            right: -10px;
+            height: 80px;
+            width: 10px;
+            background-color: #B9B195;
+            transform-origin: left;
+            transform: rotateY(90deg);
+        }
+
+        .left {
+            position: absolute;
+            left: -10px;
+            height: 80px;
+            width: 10px;
+            background-color: #B9B195;
+            transform-origin: right;
+            transform: rotateY(-90deg);
+        }
+
+        .blockPaperLeft {
+            top: 10px;
+            animation: blockPaperLeftAnimation infinite linear;
+            animation-duration: 7s;
+        }
+
+        .blockPaperRight {
+            top: 10px;
+            animation: blockPaperRightAnimation infinite linear;
+            animation-duration: 7s;
+        }
+
+        /*paper*/
+        .paper {
+            position: absolute;
+            width: 50px;
+            height: 80px;
+            background-color: #FFF8CD;
+        }
+
+        .rowPaper {
+            width: 50px;
+        }
+
+        .colPaper {
+            width: 10px;
+            height: 10px;
+            float: left;
+        }
+
+        .papercolor1 {
+            width: 10px;
+            height: 10px;
+            background-color: #D0C294;
+        }
+
+        .papercolor2 {
+            width: 10px;
+            height: 10px;
+            background-color: #EDE0B2;
+        }
+
+        .paperLeft {
+            transform-origin: right;
+            animation: paperLeftAnimation infinite linear;
+            animation-duration: 7s;
+        }
+
+        .paperRight {
+            transform-origin: left;
+            animation: paperRightAnimation infinite linear;
+            animation-duration: 7s;
+        }
+
+        /*keyframes*/
+        @keyframes rotate {
+            0% {
+                transform: translateZ(20px) rotateZ(0deg) rotateX(-10deg);
+            }
+
+            60% {
+                transform: translateZ(20px) rotateZ(0deg);
+            }
+
+            95% {
+                transform: translateZ(20px) rotateZ(-120deg);
+            }
+
+            100% {
+                transform: translateZ(20px) rotateZ(0deg) rotateX(-10deg);
+            }
+        }
+
+        @keyframes coverLeftAnimation {
+            0% {
+                transform: rotateY(-170deg);
+            }
+
+            10% {
+                transform: rotateY(-160deg);
+            }
+
+            20% {
+                transform: rotateY(-170deg);
+            }
+
+            30% {
+                transform: rotateY(-160deg);
+            }
+
+            40% {
+                transform: rotateY(-170deg);
+            }
+
+            50% {
+                transform: rotateY(-170deg);
+            }
+
+            60% {
+                transform: rotateY(-90deg);
+            }
+
+            95% {
+                transform: rotateY(-90deg);
+            }
+
+            100% {
+                transform: rotateY(-170deg);
+            }
+        }
+
+        @keyframes coverRightAnimation {
+            0% {
+                transform: rotateY(-10deg);
+            }
+
+            10% {
+                transform: rotateY(-20deg);
+            }
+
+            20% {
+                transform: rotateY(-10deg);
+            }
+
+            30% {
+                transform: rotateY(-20deg);
+            }
+
+            40% {
+                transform: rotateY(-10deg);
+            }
+
+            50% {
+                transform: rotateY(-10deg);
+            }
+
+            60% {
+                transform: rotateY(-90deg);
+            }
+
+            95% {
+                transform: rotateY(-90deg);
+            }
+
+            100% {
+                transform: rotateY(-10deg);
+            }
+        }
+
+        @keyframes blockPaperLeftAnimation {
+            0% {
+
+                transform: rotateY(180deg) translateZ(12px) translateX(8px);
+            }
+
+            10% {
+
+                transform: rotateY(180deg) translateZ(12px) translateX(6px);
+            }
+
+            20% {
+
+                transform: rotateY(180deg) translateZ(12px) translateX(8px);
+            }
+
+            30% {
+
+                transform: rotateY(180deg) translateZ(12px) translateX(6px);
+            }
+
+            40% {
+
+                transform: rotateY(180deg) translateZ(12px) translateX(8px);
+            }
+
+            50% {
+
+                transform: rotateY(180deg) translateZ(10px) translateX(8px);
+            }
+
+            60% {
+
+                transform: rotateY(180deg) translateZ(12px) translateX(-1px);
+            }
+
+            95% {
+
+                transform: rotateY(180deg) translateZ(10px) translateX(-1px);
+            }
+
+            100% {
+
+                transform: rotateY(180deg) translateZ(10px) translateX(8px);
+            }
+        }
+
+        @keyframes blockPaperRightAnimation {
+            0% {
+                transform: translateZ(12px) translateX(-8px);
+            }
+
+            10% {
+                transform: translateZ(12px) translateX(-6px);
+            }
+
+            20% {
+                transform: translateZ(12px) translateX(-8px);
+            }
+
+            30% {
+                transform: translateZ(12px) translateX(-6px);
+            }
+
+            40% {
+                transform: translateZ(12px) translateX(-8px);
+            }
+
+            50% {
+                transform: translateZ(10px) translateX(-8px);
+            }
+
+            60% {
+                transform: translateZ(12px) translateX(1px);
+            }
+
+            61% {
+                transform: translateZ(10px) translateX(1px);
+            }
+
+            95% {
+                transform: translateZ(10px) translateX(1px);
+            }
+
+            100% {
+                transform: translateZ(10px) translateX(-8px);
+            }
+        }
+
+        @keyframes paperLeftAnimation {
+            0% {
+                transform: rotateY(0deg);
+            }
+
+            5% {
+                transform: rotateY(150deg);
+            }
+
+            9% {
+                transform: rotateY(0deg);
+            }
+
+            10% {
+                transform: rotateY(150deg);
+            }
+
+            11% {
+                transform: rotateY(0deg);
+            }
+
+            12% {
+                transform: rotateY(150deg);
+            }
+
+            13% {
+                transform: rotateY(0deg);
+            }
+
+            14% {
+                transform: rotateY(150deg);
+            }
+
+            15% {
+                transform: rotateY(0deg);
+            }
+
+            17% {
+                transform: rotateY(150deg);
+            }
+
+            19% {
+                transform: rotateY(0deg);
+            }
+
+            22% {
+                transform: rotateY(150deg);
+            }
+
+            25% {
+                transform: rotateY(0deg);
+            }
+
+            29% {
+                transform: rotateY(150deg);
+            }
+
+            50% {
+                transform: rotateY(10deg);
+            }
+
+            60% {
+                transform: rotateY(0deg);
+            }
+
+            97% {
+                transform: rotateY(0deg);
+            }
+
+            98% {
+                transform: rotateY(20deg);
+            }
+
+            99% {
+                transform: rotateY(30deg);
+            }
+
+            100% {
+                transform: rotateY(0deg);
+            }
+        }
+
+        @keyframes paperRightAnimation {
+            0% {
+                transform: rotateY(0deg);
+            }
+
+            8% {
+                transform: rotateY(-120deg);
+            }
+
+            9% {
+                transform: rotateY(0deg);
+            }
+
+            14% {
+                transform: rotateY(-150deg);
+            }
+
+            15% {
+                transform: rotateY(0deg);
+            }
+
+            16% {
+                transform: rotateY(-150deg);
+            }
+
+            17% {
+                transform: rotateY(0deg);
+            }
+
+            18% {
+                transform: rotateY(-150deg);
+            }
+
+            19% {
+                transform: rotateY(0deg);
+            }
+
+            21% {
+                transform: rotateY(-150deg);
+            }
+
+            23% {
+                transform: rotateY(0deg);
+            }
+
+            26% {
+                transform: rotateY(-150deg);
+            }
+
+            29% {
+                transform: rotateY(-10deg);
+            }
+
+            33% {
+                transform: rotateY(0deg);
+            }
+
+            95% {
+                transform: rotateY(0deg);
+            }
+
+            98% {
+                transform: rotateY(-20deg);
+            }
+
+            99% {
+                transform: rotateY(-40deg);
+            }
+
+            100% {
+                transform: rotateY(0deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="primaryBlock">
+        <div class="matTren">
+
+            <div class="inMatTren1"></div>
+
+            <div class="inMatTren2 inMatTren2-1"></div>
+            <div class="inMatTren2 inMatTren2-2"></div>
+            <div class="inMatTren2 inMatTren2-3"></div>
+            <div class="inMatTren2 inMatTren2-4"></div>
+
+            <div class="inMatTren3 inMatTren3-1"></div>
+            <div class="inMatTren3 inMatTren3-2"></div>
+            <div class="inMatTren3 inMatTren3-3"></div>
+            <div class="inMatTren3 inMatTren3-4"></div>
+
+            <div class="inMatTren4 inMatTren4-1"></div>
+            <div class="inMatTren4 inMatTren4-2"></div>
+            <div class="inMatTren4 inMatTren4-3"></div>
+
+
+            <div class="goc1">
+                <div class="ingoc inGoc1-1"></div>
+                <div class="ingoc inGoc1-2"></div>
+                <div class="ingoc inGoc2-1"></div>
+                <div class="ingoc inGoc2-2"></div>
+                <div class="ingoc inGoc3-1"></div>
+                <div class="ingoc inGoc4-1"></div>
+                <div class="ingoc inGoc5-1"></div>
+            </div>
+
+            <div class="goc2">
+                <div class="ingoc inGoc1-1"></div>
+                <div class="ingoc inGoc1-2"></div>
+                <div class="ingoc inGoc2-1"></div>
+                <div class="ingoc inGoc2-2"></div>
+                <div class="ingoc inGoc3-1"></div>
+                <div class="ingoc inGoc4-1"></div>
+                <div class="ingoc inGoc5-1"></div>
+            </div>
+
+            <div class="goc3">
+                <div class="ingoc inGoc1-1"></div>
+                <div class="ingoc inGoc1-2"></div>
+                <div class="ingoc inGoc2-1"></div>
+                <div class="ingoc inGoc2-2"></div>
+                <div class="ingoc inGoc3-1"></div>
+                <div class="ingoc inGoc4-1"></div>
+                <div class="ingoc inGoc5-1"></div>
+            </div>
+
+            <div class="goc4">
+                <div class="ingoc inGoc1-1"></div>
+                <div class="ingoc inGoc1-2"></div>
+                <div class="ingoc inGoc2-1"></div>
+                <div class="ingoc inGoc2-2"></div>
+                <div class="ingoc inGoc3-1"></div>
+                <div class="ingoc inGoc4-1"></div>
+                <div class="ingoc inGoc5-1"></div>
+            </div>
+
+        </div>
+
+        <div class="allMatBen matBen1">
+
+            <div class="goc5">
+                <div class="ingoc inGoc1-1"></div>
+                <div class="ingoc inGoc1-2"></div>
+                <div class="ingoc inGoc2-1"></div>
+                <div class="ingoc inGoc2-2"></div>
+                <div class="ingoc inGoc3-1"></div>
+                <div class="ingoc inGoc4-1"></div>
+                <div class="ingoc inGoc5-1"></div>
+            </div>
+
+            <div class="goc6">
+                <div class="ingoc inGoc1-1"></div>
+                <div class="ingoc inGoc1-2"></div>
+                <div class="ingoc inGoc2-1"></div>
+                <div class="ingoc inGoc2-2"></div>
+                <div class="ingoc inGoc3-1"></div>
+                <div class="ingoc inGoc4-1"></div>
+                <div class="ingoc inGoc5-1"></div>
+            </div>
+
+            <div class="inSideTham inSideTham1-1"></div>
+            <div class="inSideTham inSideTham1-2"></div>
+            <div class="inSideTham inSideTham1-3"></div>
+            <div class="inSideTham inSideTham1-4"></div>
+
+
+            <div class="inSideTham inSideTham2-1"></div>
+
+            <div class="inSideTham inSideTham3-1"></div>
+            <div class="inSideTham inSideTham3-2"></div>
+
+            <div class="front">
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="allMatBen matBen2">
+
+            <div class="goc5">
+                <div class="ingoc inGoc1-1"></div>
+                <div class="ingoc inGoc1-2"></div>
+                <div class="ingoc inGoc2-1"></div>
+                <div class="ingoc inGoc2-2"></div>
+                <div class="ingoc inGoc3-1"></div>
+                <div class="ingoc inGoc4-1"></div>
+                <div class="ingoc inGoc5-1"></div>
+            </div>
+
+            <div class="goc6">
+                <div class="ingoc inGoc1-1"></div>
+                <div class="ingoc inGoc1-2"></div>
+                <div class="ingoc inGoc2-1"></div>
+                <div class="ingoc inGoc2-2"></div>
+                <div class="ingoc inGoc3-1"></div>
+                <div class="ingoc inGoc4-1"></div>
+                <div class="ingoc inGoc5-1"></div>
+            </div>
+
+            <div class="inSideTham inSideTham1-1"></div>
+            <div class="inSideTham inSideTham1-2"></div>
+            <div class="inSideTham inSideTham1-3"></div>
+            <div class="inSideTham inSideTham1-4"></div>
+
+
+            <div class="inSideTham inSideTham2-1"></div>
+
+            <div class="inSideTham inSideTham3-1"></div>
+            <div class="inSideTham inSideTham3-2"></div>
+
+            <div class="front">
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="allMatBen matduoi">
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+            <div class="rowMatBen">
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+                <div class="colMatBen"></div>
+            </div>
+        </div>
+
+        <div class="allMatBen matBen3">
+
+            <div class="goc5">
+                <div class="ingoc inGoc1-1"></div>
+                <div class="ingoc inGoc1-2"></div>
+                <div class="ingoc inGoc2-1"></div>
+                <div class="ingoc inGoc2-2"></div>
+                <div class="ingoc inGoc3-1"></div>
+                <div class="ingoc inGoc4-1"></div>
+                <div class="ingoc inGoc5-1"></div>
+            </div>
+
+            <div class="goc6">
+                <div class="ingoc inGoc1-1"></div>
+                <div class="ingoc inGoc1-2"></div>
+                <div class="ingoc inGoc2-1"></div>
+                <div class="ingoc inGoc2-2"></div>
+                <div class="ingoc inGoc3-1"></div>
+                <div class="ingoc inGoc4-1"></div>
+                <div class="ingoc inGoc5-1"></div>
+            </div>
+
+            <div class="inSideTham inSideTham1-1"></div>
+            <div class="inSideTham inSideTham1-2"></div>
+            <div class="inSideTham inSideTham1-3"></div>
+            <div class="inSideTham inSideTham1-4"></div>
+
+
+            <div class="inSideTham inSideTham2-1"></div>
+
+            <div class="inSideTham inSideTham3-1"></div>
+            <div class="inSideTham inSideTham3-2"></div>
+
+            <div class="front">
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="allMatBen matBen4">
+
+            <div class="goc5">
+                <div class="ingoc inGoc1-1"></div>
+                <div class="ingoc inGoc1-2"></div>
+                <div class="ingoc inGoc2-1"></div>
+                <div class="ingoc inGoc2-2"></div>
+                <div class="ingoc inGoc3-1"></div>
+                <div class="ingoc inGoc4-1"></div>
+                <div class="ingoc inGoc5-1"></div>
+            </div>
+
+            <div class="goc6">
+                <div class="ingoc inGoc1-1"></div>
+                <div class="ingoc inGoc1-2"></div>
+                <div class="ingoc inGoc2-1"></div>
+                <div class="ingoc inGoc2-2"></div>
+                <div class="ingoc inGoc3-1"></div>
+                <div class="ingoc inGoc4-1"></div>
+                <div class="ingoc inGoc5-1"></div>
+            </div>
+
+            <div class="inSideTham inSideTham1-1"></div>
+            <div class="inSideTham inSideTham1-2"></div>
+            <div class="inSideTham inSideTham1-3"></div>
+            <div class="inSideTham inSideTham1-4"></div>
+
+
+            <div class="inSideTham inSideTham2-1"></div>
+
+            <div class="inSideTham inSideTham3-1"></div>
+            <div class="inSideTham inSideTham3-2"></div>
+
+            <div class="front">
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+                <div class="rowMatBen">
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                    <div class="colMatBen"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="allBook">
+            <div class="centerCover">
+
+                <div class="cover coverLeft">
+
+                    <div class="frontBlockPaper blockPaperLeft">
+
+                        <div class="paper paperLeft">
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor1"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor1"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper papercolor1"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor1"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper papercolor2"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="paper">
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor1"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor1"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper papercolor1"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor1"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper papercolor2"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="bottom"></div>
+                        <div class="top"></div>
+                        <div class="right"></div>
+                        <div class="left"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor3"></div>
+                        <div class="col coverColor5"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor4"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor5"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor5"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor5"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor5"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor4"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor3"></div>
+                        <div class="col coverColor5"></div>
+                    </div>
+                </div>
+
+                <div class="cover coverRight">
+
+                    <div class="frontBlockPaper blockPaperRight">
+
+                        <div class="paper paperRight">
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor1"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor1"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper papercolor1"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor1"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper papercolor2"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="paper">
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor1"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor1"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper papercolor1"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor1"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper papercolor2"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                                <div class="colPaper papercolor2"></div>
+                            </div>
+                            <div class="rowPaper">
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                                <div class="colPaper"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="bottom"></div>
+                        <div class="top"></div>
+                        <div class="right"></div>
+                        <div class="left"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor3"></div>
+                        <div class="col coverColor5"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor4"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor5"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor5"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor5"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor5"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col coverColor4"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col coverColor1"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor2"></div>
+                        <div class="col coverColor3"></div>
+                        <div class="col coverColor5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const colors = ['#000000', '#050209', '#0D0A16', '#261D3C', '#3A2652'];
+        const weights = [0.2578125, 0.2890625, 0.2578125, 0.12109375, 0.07421875];
+        function getRandomColor() {
+            const weightedColors = [];
+            for (let i = 0; i < colors.length; i++) {
+                const count = Math.floor(weights[i] * 100);
+                for (let j = 0; j < count; j++) {
+                    weightedColors.push(colors[i]);
+                }
+            }
+            const randomIndex = Math.floor(Math.random() * weightedColors.length);
+            return weightedColors[randomIndex];
+        }
+        function setRandomBackgroundColor(className) {
+            const elements = document.getElementsByClassName(className);
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].style.backgroundColor = getRandomColor();
+            }
+        }
+        window.onload = function () {
+            setRandomBackgroundColor('colMatBen');
+        };
+    </script>
+</body>
+
+</html>
