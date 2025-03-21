@@ -1,0 +1,90 @@
+.bodychest {
+    position: relative;
+    height: 140px;
+    width: 140px;
+    transform-style: preserve-3d;
+}
+.bodychestdown,
+.partbodysidefront,
+.partbodysideback,
+.partbodysideleft,
+.partbodysideright,
+.partbodysidetop {
+    position: absolute;
+}
+.bodychestdown {
+    position: absolute;
+}
+.bodychestdownshade {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    background-color: rgba(0, 0, 0, 0.603);
+}
+.partbodysidefront {
+    bottom: 0;
+    transform-origin: bottom;
+    transform: rotateX(-90deg);
+}
+.partbodysideback {
+    top: -100px;
+    transform-origin: bottom;
+    transform: rotateX(-90deg);
+}
+.partbodysideleft {
+    left: -140px;
+    transform-origin: bottom;
+    rotate: -90deg;
+    transform: translateX(30px) translateY(70px) rotateX(-90deg);
+}
+.partbodysideright {
+    right: -140px;
+    transform-origin: bottom;
+    rotate: 90deg;
+    transform: translateX(-30px) translateY(70px) rotateX(-90deg);
+}
+.partbodysidetop {
+    transform: translateZ(100px);
+    animation: open2 4.5s infinite linear;
+}
+
+.sidebodyshade {
+    position: absolute;
+    top: 0;
+    width: 140px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.301);
+}
+
+.hole {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    transform: translateZ(100px);
+}
+
+@keyframes open2 {
+    0% {
+        transform: translateZ(100px);
+        filter: brightness(0);
+    }
+    25% {
+        transform: translateZ(100px);
+        filter: brightness(1);
+    }
+    50% {
+        transform: translateZ(100px);
+        filter: brightness(1);
+    }
+    75% {
+        transform: translateZ(100px);
+        filter: brightness(0);
+    }
+    100% {
+        transform: translateZ(100px);
+        filter: brightness(0);
+    }
+}

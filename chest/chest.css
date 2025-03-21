@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    height: 100vh;
+    width: 100vw;
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+.chest {
+    position: relative;
+    transform-style: preserve-3d;
+    width: 140px;
+    height: 140px;
+    animation: rotate 10s infinite linear;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotateX(65deg) rotateZ(-25deg);
+    }
+    100% {
+        transform: rotateX(65deg) rotateZ(335deg);
+    }
+}
+@keyframes open  {
+    0% { 
+        filter: brightness(0);
+    }
+    25% {
+        filter: brightness(1);
+    }
+    50% { 
+        filter: brightness(1);
+    }
+    75% {
+        filter: brightness(0);
+    }
+    100% {
+        filter: brightness(0);
+    }
+}

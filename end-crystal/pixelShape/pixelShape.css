@@ -1,0 +1,6 @@
+.hori {
+    display: flex;
+}
+.verti{
+    float: left;
+}

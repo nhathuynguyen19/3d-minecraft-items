@@ -1,0 +1,102 @@
+.shieldBlock {
+    position: relative;
+    transform-style: preserve-3d;
+    transform-origin: center;
+    width: 160px;
+    height: 160px;
+    animation: shieldBlockOutSideRotate 6s infinite linear;
+}
+.shielBlockInside {
+    position: absolute;
+    transform-style: preserve-3d;
+    transform-origin: 80px 80px 70px;
+    width: 160px;
+    height: 160px;
+    animation: shieldInsideRotate 5s infinite linear;
+}
+.topShieldInside,
+.bottomShieldInside,
+.rightShieldInside,
+.leftShieldInside,
+.frontShieldInside,
+.backShieldInside {
+    position: absolute;
+}
+.topShieldInside {
+    transform-origin: top;
+    top: 10px;
+    transform: rotateX(90deg) scale(87.5%);
+}
+.bottomShieldInside {
+    transform-origin: bottom;
+    bottom: 10px;
+    transform: rotateX(-90deg) scale(87.5%);
+}
+.rightShieldInside {
+    transform-origin: right;
+    right: 10px;
+    transform: rotateY(90deg) scale(87.5%);
+}
+.leftShieldInside {
+    transform-origin: left;
+    left: 10px;
+    transform: rotateY(-90deg) scale(87.5%);
+}
+.frontShieldInside {
+    transform: translateZ(140px) scale(87.5%);
+}
+.backShieldInside {
+    transform: scale(87.5%);
+}
+
+
+
+
+.topShield,
+.bottomShield,
+.rightShield,
+.leftShield,
+.frontShield,
+.backShield {
+    position: absolute;
+}
+.topShield {
+    transform-origin: top;
+    transform: translateZ(-80px) rotateX(90deg);
+}
+.bottomShield {
+    transform-origin: bottom;
+    transform: translateZ(-80px) rotateX(-90deg);
+}
+.rightShield {
+    transform-origin: right;
+    transform: translateZ(-80px) rotateY(90deg);
+}
+.leftShield {
+    transform-origin: left;
+    transform: translateZ(-80px) rotateY(-90deg);
+}
+.frontShield {
+    transform: translateZ(80px);
+}
+.backShield {
+    transform: translateZ(-80px);
+}
+
+@keyframes shieldBlockOutSideRotate {
+    0% {
+        transform: rotateX(45deg) rotateZ(45deg) rotate3d(1,1,1,0deg);
+    }
+    100% {
+        transform: rotateX(45deg) rotateZ(45deg) rotate3d(1,1,1,-360deg);
+    }
+}
+
+@keyframes shieldInsideRotate {
+    0% {
+        transform: translateZ(-70px) rotateX(45deg) rotateY(45deg) rotateZ(0deg);
+    }
+    100% {
+        transform: translateZ(-70px) rotateX(45deg) rotateY(45deg) rotateZ(360deg);
+    }
+}

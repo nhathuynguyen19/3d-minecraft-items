@@ -1,0 +1,28 @@
+/*block*/
+#containerBlock {
+    position: absolute;
+    transform-style: preserve-3d;
+    transform-origin: 80px 80px 60px;
+    width: 160px;
+    height: 160px;
+    animation: rotateBlock 7s infinite linear;
+}
+
+@keyframes rotateBlock {
+    0% {
+        transform: translateZ(10px) rotateX(30deg) rotateY(0deg);
+    }
+    25% {
+        transform: translateZ(10px) rotateZ(30deg) rotateY(90deg);
+    }
+    50% {
+        transform: translateZ(10px) rotateX(-30deg) rotateY(180deg);
+    }
+    75% {
+        transform: translateZ(10px) rotateZ(-30deg) rotateY(270deg);
+    }
+    100% {
+        transform: translateZ(10px) rotateX(30deg) rotateY(360deg);
+    }
+}
+

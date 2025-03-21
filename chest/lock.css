@@ -1,0 +1,46 @@
+.lock {
+    position: relative;
+    position: absolute;
+    bottom: -10px;
+    left: 60px;
+    transform-style: preserve-3d;
+    width: 20px;
+    height: 10px;
+    transform: translateZ(-10px);
+}
+.row1 {
+    position: absolute;
+}
+.row2 {
+    transform: translateZ(10px);
+}
+.row3 {
+    transform: translateZ(20px);
+}
+.row4 {
+    transform: translateZ(30px);
+}
+.color1 {
+    background-color: #737379;
+}
+.color2 {
+    background-color: #919198;
+}
+.color3 {
+    background-color: #75757B;
+}
+.color4 {
+    background-color: #A2A3AA;
+}
+.color5 {
+    background-color: #838389;
+}
+.color6 {
+    background-color: #BDBEC7;
+}
+.color7 {
+    background-color: #A3A3AA;
+}
+.color8 {
+    background-color: #C8CAD3;
+}

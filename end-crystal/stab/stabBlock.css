@@ -1,0 +1,42 @@
+.stabBlock {
+    position: absolute;
+    transform-style: preserve-3d;
+    width: 240px;
+    height: 240px;
+    transform: translateZ(-200px);
+}
+
+.stabSideBack,
+.stabSideFront,
+.stabSideTop,
+.stabSideBottom,
+.stabSideLeft,
+.stabSideRight {
+    position: absolute;
+}
+.stabSideBack {
+    display: block;
+}
+.stabSideFront {
+    transform: translateZ(80px);
+}
+.stabSideTop {
+    top: -80px;
+    transform-origin: bottom;
+    transform: rotateX(-90deg);
+}
+.stabSideBottom {
+    bottom: 0;
+    transform-origin: bottom;
+    transform: rotateX(-90deg);
+}
+.stabSideLeft {
+    rotate: 90deg;
+    transform-origin: bottom;
+    transform: translateY(120px) translateX(40px) rotateX(-90deg);
+}
+.stabSideRight {
+    rotate: -90deg;
+    transform-origin: bottom;
+    transform: translateX(-40px) translateY(120px) rotateX(-90deg);
+}

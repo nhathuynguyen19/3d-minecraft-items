@@ -1,0 +1,48 @@
+.pixel {
+    width: 10px;
+    height: 10px;
+    float: left;
+}
+.pixel0 {
+    border: 1px solid white;
+}
+
+/*border*/
+.pixel1 {
+    background-color: #2A2520;
+}
+.pixel2 {
+    background-color: #2D2823;
+}
+.pixel3 {
+    background-color: #35302A;
+}
+.pixel4 {
+    background-color: #37322B;
+}
+.pixel5 {
+    background-color: #39342C;
+}
+/*border side*/
+.pixel6 {
+    background-color: #836428;
+}
+.pixel7 {
+    background-color: #966729;
+}
+.pixel8 {
+    background-color: #956B31;
+}
+/*side*/
+.pixel9 {
+    background-color: #926C23;
+}
+.pixel10 {
+    background-color: #AA7226;
+}
+.pixel11 {
+    background-color: #AE7C32;
+}
+.pixel12 {
+    background-color: #A9772E;
+}

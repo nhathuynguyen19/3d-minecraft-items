@@ -1,0 +1,54 @@
+.light {
+    position: relative;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    transform-style: preserve-3d;
+    width: 100px;
+    height: 100px;
+    animation: lightup 4.5s infinite linear;
+}
+.lightside {
+    position: absolute;
+    width: 100px;
+    height: 100px;    
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+} 
+
+.lightback {
+    top: -100px;
+    transform-origin: bottom;
+    transform: rotateX(-90deg);
+}
+.lightfront {
+    transform-origin: bottom;
+    transform: rotateX(-90deg);
+}
+.lightleft {
+    left: -100px;
+    transform-origin: bottom;
+    transform: rotate(-90deg) translateX(50px) translateY(50px) rotateX(-90deg);
+}
+.lightright {
+    right: -100px;
+    transform-origin: bottom;
+    transform: rotate(-90deg) translateX(50px) translateY(-50px) rotateX(-90deg);
+}
+
+@keyframes lightup {
+    0% {
+        transform: translateZ(0px);
+    }
+    25% {
+        transform: translateZ(50px);
+    }
+    50% {
+        transform: translateZ(50px);
+    }
+    75% {
+        transform: translateZ(0px);
+    }
+    100% {
+        transform: translateZ(0px);
+    }
+}
